@@ -10,6 +10,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool _isHidden = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,13 +68,13 @@ class _LoginPageState extends State<LoginPage> {
                 height: 60,
               ),
               TextFormField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(13),
                     ),
                   ),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Color(0xFF246B32),
                       width: 2,
@@ -82,12 +84,19 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   labelText: "Senha",
-                  focusColor: Color(0xFF246B32),
-                  fillColor: Color(0xFF246B32),
-                  labelStyle: TextStyle(
+                  focusColor: const Color(0xFF246B32),
+                  fillColor: const Color(0xFF246B32),
+                  labelStyle: const TextStyle(
                     color: Color(0xFF246B32),
                   ),
+                  suffix: InkWell(
+                    onTap: _togglePasswordView,
+                    child: _isHidden
+                        ? const Icon(Icons.visibility)
+                        : const Icon(Icons.visibility_off),
+                  ),
                 ),
+                obscureText: _isHidden,
               ),
               const SizedBox(
                 height: 20,
@@ -151,5 +160,11 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  void _togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
   }
 }
