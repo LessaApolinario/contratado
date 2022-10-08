@@ -87,6 +87,66 @@ class _ContractorsPageState extends State<ContractorsPage> {
         ),
       ),
       body: const Text(""),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color(0xFFE7E0EC),
+        selectedIconTheme: const IconThemeData(
+          color: Color(0xFF1D192B),
+        ),
+        selectedLabelStyle: const TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Color(0xFF1D192B),
+        ),
+        unselectedLabelStyle: const TextStyle(
+          color: Color(0xFF49454F),
+        ),
+        unselectedIconTheme: const IconThemeData(
+          color: Color(0xFF49454F),
+        ),
+        items: const [
+          BottomNavigationBarItem(
+            activeIcon: Icon(
+              Icons.circle,
+              size: 24,
+            ),
+            icon: Icon(
+              IconData(
+                0xf87b,
+                fontFamily: "Roboto",
+                fontPackage: "Cupertino",
+              ),
+            ),
+            label: "Prestadores",
+          ),
+          BottomNavigationBarItem(
+            activeIcon: Icon(
+              Icons.circle,
+              size: 24,
+            ),
+            icon: Icon(
+              IconData(
+                0xf87b,
+                fontFamily: "Roboto",
+                fontPackage: "Cupertino",
+              ),
+            ),
+            label: "Solicitações",
+          ),
+          BottomNavigationBarItem(
+            activeIcon: Icon(
+              Icons.circle,
+              size: 24,
+            ),
+            icon: Icon(
+              IconData(
+                0xf87b,
+                fontFamily: "Roboto",
+                fontPackage: "Cupertino",
+              ),
+            ),
+            label: "Perfil",
+          )
+        ],
+      ),
     );
   }
 }
