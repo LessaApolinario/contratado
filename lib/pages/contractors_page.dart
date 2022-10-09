@@ -88,60 +88,46 @@ class _ContractorsPageState extends State<ContractorsPage> {
       ),
       body: const Text(""),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         backgroundColor: const Color(0xFFE7E0EC),
-        selectedIconTheme: const IconThemeData(
-          color: Color(0xFF1D192B),
-        ),
+        selectedItemColor: const Color(0xFF1D192B),
+        unselectedItemColor: const Color(0xFF49454F),
         selectedLabelStyle: const TextStyle(
+          fontSize: 12,
           fontWeight: FontWeight.bold,
-          color: Color(0xFF1D192B),
+          letterSpacing: 0.5,
         ),
         unselectedLabelStyle: const TextStyle(
-          color: Color(0xFF49454F),
+          fontSize: 12,
+          fontWeight: FontWeight.normal,
+          letterSpacing: 0.5,
         ),
-        unselectedIconTheme: const IconThemeData(
-          color: Color(0xFF49454F),
-        ),
+        iconSize: 24,
         items: const [
           BottomNavigationBarItem(
             activeIcon: Icon(
               Icons.circle,
-              size: 24,
             ),
             icon: Icon(
-              IconData(
-                0xf87b,
-                fontFamily: "Roboto",
-                fontPackage: "Cupertino",
-              ),
+              Icons.square_outlined,
             ),
-            label: "Prestadores",
+            label: "Home",
           ),
           BottomNavigationBarItem(
             activeIcon: Icon(
               Icons.circle,
-              size: 24,
             ),
             icon: Icon(
-              IconData(
-                0xf87b,
-                fontFamily: "Roboto",
-                fontPackage: "Cupertino",
-              ),
+              Icons.square_outlined,
             ),
             label: "Solicitações",
           ),
           BottomNavigationBarItem(
             activeIcon: Icon(
               Icons.circle,
-              size: 24,
             ),
             icon: Icon(
-              IconData(
-                0xf87b,
-                fontFamily: "Roboto",
-                fontPackage: "Cupertino",
-              ),
+              Icons.square_outlined,
             ),
             label: "Perfil",
           )
