@@ -24,7 +24,9 @@ class _RegisterContractorPageState extends State<RegisterContractorPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
-                const SizedBox(height: 100),
+                const SizedBox(
+                  height: 100,
+                ),
                 const Center(
                   child: Text(
                     "Registro de Contratante",
