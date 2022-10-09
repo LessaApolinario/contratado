@@ -13,6 +13,19 @@ class ContractorsPage extends StatefulWidget {
 // final String colorNavBarItem = "rgba(36, 107, 50, 0.24)";
 
 class _ContractorsPageState extends State<ContractorsPage> {
+  int _currentIndex = 0;
+  static final List<Widget> _pages = [
+    const Text("Lista de prestadores"),
+    const Text("Lista de solicitações"),
+    const Text("Perfil"),
+  ];
+
+  void _onTap(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +99,7 @@ class _ContractorsPageState extends State<ContractorsPage> {
           ),
         ),
       ),
-      body: const Text(""),
+      body: _pages.elementAt(_currentIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: const Color(0xFFE7E0EC),
@@ -132,6 +145,8 @@ class _ContractorsPageState extends State<ContractorsPage> {
             label: "Perfil",
           )
         ],
+        currentIndex: _currentIndex,
+        onTap: _onTap,
       ),
     );
   }
