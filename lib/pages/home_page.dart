@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class ContractorsPage extends StatefulWidget {
-  const ContractorsPage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<ContractorsPage> createState() => _ContractorsPageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 // final String colorButtonsCard = "#246B32";
@@ -12,7 +12,7 @@ class ContractorsPage extends StatefulWidget {
 // final String colorItem = "rgba(36, 107, 50, 0.6)";
 // final String colorNavBarItem = "rgba(36, 107, 50, 0.24)";
 
-class _ContractorsPageState extends State<ContractorsPage> {
+class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   static final List<Widget> _pages = [
     const Text("Lista de prestadores"),
