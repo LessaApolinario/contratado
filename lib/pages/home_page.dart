@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class ContractorsPage extends StatefulWidget {
-  const ContractorsPage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<ContractorsPage> createState() => _ContractorsPageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 // final String colorButtonsCard = "#246B32";
@@ -12,7 +12,20 @@ class ContractorsPage extends StatefulWidget {
 // final String colorItem = "rgba(36, 107, 50, 0.6)";
 // final String colorNavBarItem = "rgba(36, 107, 50, 0.24)";
 
-class _ContractorsPageState extends State<ContractorsPage> {
+class _HomePageState extends State<HomePage> {
+  int _currentIndex = 0;
+  static final List<Widget> _pages = [
+    const Text("Lista de prestadores"),
+    const Text("Lista de solicitações"),
+    const Text("Perfil"),
+  ];
+
+  void _onTap(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,66 +99,54 @@ class _ContractorsPageState extends State<ContractorsPage> {
           ),
         ),
       ),
-      body: const Text(""),
+      body: _pages.elementAt(_currentIndex),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         backgroundColor: const Color(0xFFE7E0EC),
-        selectedIconTheme: const IconThemeData(
-          color: Color(0xFF1D192B),
-        ),
+        selectedItemColor: const Color(0xFF1D192B),
+        unselectedItemColor: const Color(0xFF49454F),
         selectedLabelStyle: const TextStyle(
+          fontSize: 12,
           fontWeight: FontWeight.bold,
-          color: Color(0xFF1D192B),
+          letterSpacing: 0.5,
         ),
         unselectedLabelStyle: const TextStyle(
-          color: Color(0xFF49454F),
+          fontSize: 12,
+          fontWeight: FontWeight.normal,
+          letterSpacing: 0.5,
         ),
-        unselectedIconTheme: const IconThemeData(
-          color: Color(0xFF49454F),
-        ),
+        iconSize: 24,
         items: const [
           BottomNavigationBarItem(
             activeIcon: Icon(
               Icons.circle,
-              size: 24,
             ),
             icon: Icon(
-              IconData(
-                0xf87b,
-                fontFamily: "Roboto",
-                fontPackage: "Cupertino",
-              ),
+              Icons.square_outlined,
             ),
-            label: "Prestadores",
+            label: "Home",
           ),
           BottomNavigationBarItem(
             activeIcon: Icon(
               Icons.circle,
-              size: 24,
             ),
             icon: Icon(
-              IconData(
-                0xf87b,
-                fontFamily: "Roboto",
-                fontPackage: "Cupertino",
-              ),
+              Icons.square_outlined,
             ),
             label: "Solicitações",
           ),
           BottomNavigationBarItem(
             activeIcon: Icon(
               Icons.circle,
-              size: 24,
             ),
             icon: Icon(
-              IconData(
-                0xf87b,
-                fontFamily: "Roboto",
-                fontPackage: "Cupertino",
-              ),
+              Icons.square_outlined,
             ),
             label: "Perfil",
           )
         ],
+        currentIndex: _currentIndex,
+        onTap: _onTap,
       ),
     );
   }
