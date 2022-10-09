@@ -8,5 +8,5 @@ var routes = {
   '/register/contractor': (context) => const RegisterContractorPage(),
   '/resgiter/service_provider': (context) =>
       const RegisterServiceProviderPage(),
-  '/Home': (context) => const HomePage()
+  '/home': (context) => const HomePage()
 };
