@@ -7,11 +7,6 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-// final String colorButtonsCard = "#246B32";
-// final String colorPrimary = "rgba(36, 107, 50, 0.8)";
-// final String colorItem = "rgba(36, 107, 50, 0.6)";
-// final String colorNavBarItem = "rgba(36, 107, 50, 0.24)";
-
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   static final List<Widget> _pages = [
