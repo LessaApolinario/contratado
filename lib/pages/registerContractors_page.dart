@@ -188,7 +188,7 @@ class _RegisterContractorPageState extends State<RegisterContractorPage> {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: const Color(0xFF246B32),
+                    backgroundColor: const Color(0xFF246B32),
                     padding: const EdgeInsets.symmetric(
                       vertical: 8,
                       horizontal: 16,
