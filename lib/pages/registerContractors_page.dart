@@ -1,3 +1,6 @@
+import 'package:contratado/database/dao/implementations/user_dao.dart';
+import 'package:contratado/database/implementations/sqlite_database.dart';
+import 'package:contratado/models/user.dart';
 import 'package:flutter/material.dart';
 
 class RegisterContractorPage extends StatefulWidget {
@@ -8,6 +11,11 @@ class RegisterContractorPage extends StatefulWidget {
 }
 
 class _RegisterContractorPageState extends State<RegisterContractorPage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController cpfController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   bool _isHidden = true;
 
   @override
@@ -20,6 +28,7 @@ class _RegisterContractorPageState extends State<RegisterContractorPage> {
             horizontal: 16,
           ),
           child: Form(
+            key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
@@ -40,6 +49,7 @@ class _RegisterContractorPageState extends State<RegisterContractorPage> {
                   height: 100,
                 ),
                 TextFormField(
+                  controller: nameController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -68,6 +78,7 @@ class _RegisterContractorPageState extends State<RegisterContractorPage> {
                   height: 30,
                 ),
                 TextFormField(
+                  controller: emailController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -96,6 +107,7 @@ class _RegisterContractorPageState extends State<RegisterContractorPage> {
                   height: 30,
                 ),
                 TextFormField(
+                  controller: cpfController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -124,34 +136,7 @@ class _RegisterContractorPageState extends State<RegisterContractorPage> {
                   height: 30,
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(13),
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0xFF246B32),
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(13),
-                      ),
-                    ),
-                    labelText: "E-mail",
-                    hintText: "E-mail",
-                    focusColor: Color(0xFF246B32),
-                    fillColor: Color(0xFF246B32),
-                    labelStyle: TextStyle(
-                      color: Color(0xFF246B32),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
+                  controller: passwordController,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -196,7 +181,7 @@ class _RegisterContractorPageState extends State<RegisterContractorPage> {
                     fixedSize: const Size(220, 40),
                     shape: const StadiumBorder(),
                   ),
-                  onPressed: () {},
+                  onPressed: register,
                   child: const Text(
                     "Registrar-se",
                     style: TextStyle(
@@ -211,6 +196,25 @@ class _RegisterContractorPageState extends State<RegisterContractorPage> {
         ),
       ),
     );
+  }
+
+  void register() async {
+    User user = User(
+      type: "contractor",
+      name: nameController.text,
+      email: emailController.text,
+      cpf: cpfController.text,
+      password: passwordController.text,
+    );
+    SQLiteDatabase sqLiteDatabase = SQLiteDatabase();
+    UserDAO userDAO = UserDAO(sqLiteDatabase);
+    bool registedContractor = await userDAO.registerContractor(user);
+    bool isFormKeyValid = _formKey.currentState!.validate();
+
+    if (isFormKeyValid && registedContractor) {
+      // ignore: use_build_context_synchronously
+      Navigator.pushNamed(context, '/');
+    }
   }
 
   void _togglePasswordView() {
