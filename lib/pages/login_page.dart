@@ -1,5 +1,7 @@
-import 'dart:io';
+import 'dart:async';
 
+import 'package:contratado/database/dao/implementations/user_dao.dart';
+import 'package:contratado/database/implementations/sqlite_database.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,6 +12,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   bool _isHidden = true;
 
   @override
@@ -22,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
             horizontal: 16,
           ),
           child: Form(
+            key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -41,6 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 100,
                 ),
                 TextFormField(
+                  controller: emailController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -69,6 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 30,
                 ),
                 TextFormField(
+                  controller: passwordController,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -103,7 +111,12 @@ class _LoginPageState extends State<LoginPage> {
                   height: 30,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      '/register/contractor',
+                    );
+                  },
                   child: const Text(
                     "Cadastrar como contratante",
                     style: TextStyle(
@@ -125,7 +138,12 @@ class _LoginPageState extends State<LoginPage> {
                   height: 20,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      '/resgiter/service_provider',
+                    );
+                  },
                   child: const Text(
                     "Cadastrar como prestador de serviço",
                     style: TextStyle(
@@ -147,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                     fixedSize: const Size(220, 40),
                     shape: const StadiumBorder(),
                   ),
-                  onPressed: () {},
+                  onPressed: login,
                   child: const Text(
                     "Entrar",
                     style: TextStyle(
@@ -168,5 +186,18 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       _isHidden = !_isHidden;
     });
+  }
+
+  void login() async {
+    bool isFormKeyValid = _formKey.currentState!.validate();
+    SQLiteDatabase sqLiteDatabase = SQLiteDatabase();
+    UserDAO userDAO = UserDAO(sqLiteDatabase);
+    bool userExists =
+        await userDAO.login(emailController.text, passwordController.text);
+
+    if (isFormKeyValid && userExists) {
+      // ignore: use_build_context_synchronously
+      Navigator.pushNamed(context, '/home');
+    }
   }
 }
