@@ -67,18 +67,18 @@ class SQLiteDatabase implements IDatabase {
   }
 
   @override
-  Future<List<Map<String, Object?>>> findContractors() async {
-    String sql = "SELECT * FROM users WHERE type=?;";
+  Future<List<Map<String, Object?>>> findContractorsPublications() async {
+    String sql = "SELECT * FROM publications WHERE phone IS NULL;";
     Database database = await db;
-    final result = await database.rawQuery(sql, ["contractors"]);
+    final result = await database.rawQuery(sql);
     return result;
   }
 
   @override
-  Future<List<Map<String, Object?>>> findServiceProviders() async {
-    String sql = "SELECT * FROM users WHERE type=?;";
+  Future<List<Map<String, Object?>>> findServiceProvidersPublications() async {
+    String sql = "SELECT * FROM publications WHERE phone IS NOT NULL";
     Database database = await db;
-    final result = await database.rawQuery(sql, ["service provider"]);
+    final result = await database.rawQuery(sql);
     return result;
   }
 
