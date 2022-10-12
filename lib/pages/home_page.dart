@@ -1,3 +1,4 @@
+import 'package:contratado/pages/service_providers_publications_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,7 +11,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   static final List<Widget> _pages = [
-    const Text("Lista de prestadores"),
+    const ServiceProvidersPublicationsPage(),
     const Text("Lista de solicitações"),
     const Text("Perfil"),
   ];
