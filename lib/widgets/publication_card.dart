@@ -11,11 +11,6 @@ class PublicationCard extends StatefulWidget {
   State<PublicationCard> createState() => _PublicationCardState();
 }
 
-// final String colorButtonsCard = "#246B32";
-// final String colorPrimary = "rgba(36, 107, 50, 0.8)";
-// final String colorItem = "rgba(36, 107, 50, 0.6)";
-// final String colorNavBarItem = "rgba(36, 107, 50, 0.24)";
-
 class _PublicationCardState extends State<PublicationCard> {
   @override
   Widget build(BuildContext context) {
