@@ -1,3 +1,6 @@
+import 'package:contratado/database/dao/implementations/user_dao.dart';
+import 'package:contratado/database/implementations/sqlite_database.dart';
+import 'package:contratado/models/user.dart';
 import 'package:flutter/material.dart';
 
 class RegisterServiceProviderPage extends StatefulWidget {
@@ -10,6 +13,12 @@ class RegisterServiceProviderPage extends StatefulWidget {
 
 class _RegisterServiceProviderPageState
     extends State<RegisterServiceProviderPage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController cpfController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   bool _isHidden = true;
 
   String dropdownvalue = 'Pedreiro';
@@ -32,6 +41,7 @@ class _RegisterServiceProviderPageState
             horizontal: 16,
           ),
           child: Form(
+            key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
@@ -52,6 +62,7 @@ class _RegisterServiceProviderPageState
                   height: 100,
                 ),
                 TextFormField(
+                  controller: nameController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -80,6 +91,7 @@ class _RegisterServiceProviderPageState
                   height: 30,
                 ),
                 TextFormField(
+                  controller: emailController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -108,6 +120,7 @@ class _RegisterServiceProviderPageState
                   height: 30,
                 ),
                 TextFormField(
+                  controller: cpfController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -136,34 +149,7 @@ class _RegisterServiceProviderPageState
                   height: 30,
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(13),
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0xFF246B32),
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(13),
-                      ),
-                    ),
-                    labelText: "E-mail",
-                    hintText: "E-mail",
-                    focusColor: Color(0xFF246B32),
-                    fillColor: Color(0xFF246B32),
-                    labelStyle: TextStyle(
-                      color: Color(0xFF246B32),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
+                  controller: passwordController,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -199,6 +185,7 @@ class _RegisterServiceProviderPageState
                   height: 30,
                 ),
                 TextFormField(
+                  controller: phoneController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -242,7 +229,7 @@ class _RegisterServiceProviderPageState
                       height: 0,
                       color: Colors.white, //<-- SEE HERE
                     ),
-                    value: dropdownvalue,                    
+                    value: dropdownvalue,
                     icon: const Icon(
                       Icons.keyboard_arrow_down,
                       color: Color(0xFF246B32),
@@ -286,7 +273,7 @@ class _RegisterServiceProviderPageState
                     fixedSize: const Size(220, 40),
                     shape: const StadiumBorder(),
                   ),
-                  onPressed: () {},
+                  onPressed: register,
                   child: const Text(
                     "Registrar-se",
                     style: TextStyle(
@@ -301,6 +288,27 @@ class _RegisterServiceProviderPageState
         ),
       ),
     );
+  }
+
+  void register() async {
+    User user = User(
+      type: "service provider",
+      name: nameController.text,
+      email: emailController.text,
+      cpf: cpfController.text,
+      password: passwordController.text,
+      phone: phoneController.text,
+      specialty: dropdownvalue,
+    );
+    SQLiteDatabase sqLiteDatabase = SQLiteDatabase();
+    UserDAO userDAO = UserDAO(sqLiteDatabase);
+    bool registedServiceProvider = await userDAO.registerServiceProvider(user);
+    bool isFormKeyValid = _formKey.currentState!.validate();
+
+    if (isFormKeyValid && registedServiceProvider) {
+      // ignore: use_build_context_synchronously
+      Navigator.pushNamed(context, '/');
+    }
   }
 
   void _togglePasswordView() {

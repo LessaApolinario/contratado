@@ -1,6 +1,7 @@
 import "dart:async";
 
 import "package:contratado/database/i_database.dart";
+import "package:contratado/models/user.dart";
 import 'package:path/path.dart';
 import "package:sqflite/sqflite.dart";
 
@@ -68,14 +69,16 @@ class SQLiteDatabase implements IDatabase {
   @override
   Future<List<Map<String, Object?>>> findContractors() async {
     String sql = "SELECT * FROM users WHERE type=?;";
-    final result = await _db.rawQuery(sql, ["contractors"]);
+    Database database = await db;
+    final result = await database.rawQuery(sql, ["contractors"]);
     return result;
   }
 
   @override
   Future<List<Map<String, Object?>>> findServiceProviders() async {
     String sql = "SELECT * FROM users WHERE type=?;";
-    final result = await _db.rawQuery(sql, ["service provider"]);
+    Database database = await db;
+    final result = await database.rawQuery(sql, ["service provider"]);
     return result;
   }
 
@@ -94,16 +97,16 @@ class SQLiteDatabase implements IDatabase {
   }
 
   @override
-  Future<bool> registerContractor(String type, String name, String email,
-      String cpf, String password) async {
+  Future<bool> registerContractor(User user) async {
     String sql =
         "INSERT INTO users (type, name, email, cpf, password) VALUES (?, ?, ?, ?, ?);";
-    final result = await _db.rawInsert(sql, [
-      type,
-      name,
-      email,
-      cpf,
-      password,
+    Database database = await db;
+    final result = await database.rawInsert(sql, [
+      user.type,
+      user.name,
+      user.email,
+      user.cpf,
+      user.password,
     ]);
 
     if (result > 0) {
@@ -114,18 +117,18 @@ class SQLiteDatabase implements IDatabase {
   }
 
   @override
-  Future<bool> registerServiceProvider(String type, String name, String email,
-      String cpf, String password, String phone, String specialty) async {
+  Future<bool> registerServiceProvider(User user) async {
     String sql =
         "INSERT INTO users (type, name, email, cpf, password, phone, specialty) VALUES (? , ?, ?, ?, ?, ?, ?);";
-    final result = await _db.rawInsert(sql, [
-      type,
-      name,
-      email,
-      cpf,
-      password,
-      phone,
-      specialty,
+    Database database = await db;
+    final result = await database.rawInsert(sql, [
+      user.type,
+      user.name,
+      user.email,
+      user.cpf,
+      user.password,
+      user.phone,
+      user.specialty,
     ]);
 
     if (result > 0) {

@@ -47,18 +47,15 @@ class UserDAO implements IDAO {
   }
 
   @override
-  Future<bool> registerContractor(String type, String name, String email,
-      String cpf, String password) async {
-    final result =
-        await _database.registerContractor(type, name, email, cpf, password);
+  Future<bool> registerContractor(User user) async {
+    final result = await _database.registerContractor(user);
     await _database.close();
     return result;
   }
 
   @override
-  Future<bool> registerServiceProvider(String type, String name, String email,
-      String cpf, String password, String phone, String specialty) async {
-    final result = await _database.registerServiceProvider(type, name, email, cpf, password, phone, specialty);
+  Future<bool> registerServiceProvider(User user) async {
+    final result = await _database.registerServiceProvider(user);
     await _database.close();
     return result;
   }

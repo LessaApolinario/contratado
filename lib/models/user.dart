@@ -1,5 +1,6 @@
 class User {
   String? id;
+  String? type;
   String? name;
   String? email;
   String? cpf;
@@ -9,6 +10,7 @@ class User {
 
   User(
       {this.id,
+      this.type,
       this.name,
       this.email,
       this.cpf,
@@ -18,6 +20,7 @@ class User {
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    type = json['type'];
     name = json['name'];
     email = json['email'];
     cpf = json['cpf'];
@@ -29,6 +32,7 @@ class User {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+    data['type'] = this.type;
     data['name'] = this.name;
     data['email'] = this.email;
     data['cpf'] = this.cpf;
