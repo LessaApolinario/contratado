@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:contratado/database/dao/implementations/user_dao.dart';
-import 'package:contratado/database/implementations/sqlite_database.dart';
+import 'package:contratado/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -190,10 +189,10 @@ class _LoginPageState extends State<LoginPage> {
 
   void login() async {
     bool isFormKeyValid = _formKey.currentState!.validate();
-    SQLiteDatabase sqLiteDatabase = SQLiteDatabase();
-    UserDAO userDAO = UserDAO(sqLiteDatabase);
-    bool userExists =
-        await userDAO.login(emailController.text, passwordController.text);
+    UserController userController = UserController();
+
+    bool userExists = await userController.login(
+        emailController.text, passwordController.text);
 
     if (isFormKeyValid && userExists) {
       // ignore: use_build_context_synchronously
