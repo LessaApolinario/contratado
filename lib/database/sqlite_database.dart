@@ -1,14 +1,15 @@
 import "dart:async";
 
-import "package:contratado/database/i_database.dart";
+import 'package:contratado/interfaces/database/i_sql_database.dart';
 import "package:contratado/models/user.dart";
 import 'package:path/path.dart';
 import "package:sqflite/sqflite.dart";
 
-class SQLiteDatabase implements IDatabase {
+class SQLiteDatabase implements ISQLDatabase<User> {
   late Database _db;
 
-  Future<Database> get db async {
+  @override
+  Future<Database> connect() async {
     _db = await _initDB();
     return _db;
   }
@@ -67,26 +68,10 @@ class SQLiteDatabase implements IDatabase {
   }
 
   @override
-  Future<List<Map<String, Object?>>> findContractorsPublications() async {
-    String sql = "SELECT * FROM publications WHERE phone IS NULL;";
-    Database database = await db;
-    final result = await database.rawQuery(sql);
-    return result;
-  }
-
-  @override
-  Future<List<Map<String, Object?>>> findServiceProvidersPublications() async {
-    String sql = "SELECT * FROM publications WHERE phone IS NOT NULL";
-    Database database = await db;
-    final result = await database.rawQuery(sql);
-    return result;
-  }
-
-  @override
   Future<bool> login(String email, String password) async {
     String sql =
         "SELECT email, password FROM users WHERE email=? AND password=?;";
-    Database database = await db;
+    Database database = await connect();
     final result = await database.rawQuery(sql, [email, password]);
 
     if (result.isNotEmpty) {
@@ -100,7 +85,7 @@ class SQLiteDatabase implements IDatabase {
   Future<bool> registerContractor(User user) async {
     String sql =
         "INSERT INTO users (type, name, email, cpf, password) VALUES (?, ?, ?, ?, ?);";
-    Database database = await db;
+    Database database = await connect();
     final result = await database.rawInsert(sql, [
       user.type,
       user.name,
@@ -120,7 +105,7 @@ class SQLiteDatabase implements IDatabase {
   Future<bool> registerServiceProvider(User user) async {
     String sql =
         "INSERT INTO users (type, name, email, cpf, password, phone, specialty) VALUES (? , ?, ?, ?, ?, ?, ?);";
-    Database database = await db;
+    Database database = await connect();
     final result = await database.rawInsert(sql, [
       user.type,
       user.name,
@@ -132,6 +117,19 @@ class SQLiteDatabase implements IDatabase {
     ]);
 
     if (result > 0) {
+      return true;
+    }
+
+    return false;
+  }
+
+  @override
+  Future<bool> find(String data) async {
+    String sql = "SELECT * FROM users WHERE email=? LIMIT 1;";
+    Database database = await connect();
+    final result = await database.rawQuery(sql, [data]);
+
+    if (result.isNotEmpty) {
       return true;
     }
 

@@ -1,5 +1,4 @@
-import 'package:contratado/database/dao/implementations/user_dao.dart';
-import 'package:contratado/database/implementations/sqlite_database.dart';
+import 'package:contratado/controllers/user_controller.dart';
 import 'package:contratado/models/user.dart';
 import 'package:flutter/material.dart';
 
@@ -300,9 +299,10 @@ class _RegisterServiceProviderPageState
       phone: phoneController.text,
       specialty: dropdownvalue,
     );
-    SQLiteDatabase sqLiteDatabase = SQLiteDatabase();
-    UserDAO userDAO = UserDAO(sqLiteDatabase);
-    bool registedServiceProvider = await userDAO.registerServiceProvider(user);
+
+    UserController userController = UserController();
+    bool registedServiceProvider =
+        await userController.registerServiceProvider(user);
     bool isFormKeyValid = _formKey.currentState!.validate();
 
     if (isFormKeyValid && registedServiceProvider) {

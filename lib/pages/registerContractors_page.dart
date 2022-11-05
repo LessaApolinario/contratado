@@ -1,5 +1,4 @@
-import 'package:contratado/database/dao/implementations/user_dao.dart';
-import 'package:contratado/database/implementations/sqlite_database.dart';
+import 'package:contratado/controllers/user_controller.dart';
 import 'package:contratado/models/user.dart';
 import 'package:flutter/material.dart';
 
@@ -206,9 +205,9 @@ class _RegisterContractorPageState extends State<RegisterContractorPage> {
       cpf: cpfController.text,
       password: passwordController.text,
     );
-    SQLiteDatabase sqLiteDatabase = SQLiteDatabase();
-    UserDAO userDAO = UserDAO(sqLiteDatabase);
-    bool registedContractor = await userDAO.registerContractor(user);
+
+    UserController userController = UserController();
+    bool registedContractor = await userController.registerContractor(user);
     bool isFormKeyValid = _formKey.currentState!.validate();
 
     if (isFormKeyValid && registedContractor) {
