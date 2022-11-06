@@ -3,9 +3,9 @@ import 'package:contratado/interfaces/repositories/i_user_repository.dart';
 import 'package:contratado/models/user.dart';
 
 class UserRepository implements IUserRepository {
-  late ISQLDatabase<User> _database;
+  late ISQLDatabase _database;
 
-  UserRepository(ISQLDatabase<User> database) {
+  UserRepository(ISQLDatabase database) {
     _database = database;
   }
 
@@ -21,11 +21,11 @@ class UserRepository implements IUserRepository {
 
   @override
   Future<bool> registerContractor(User user) async {
-    return await _database.registerContractor(user);
+    return await _database.registerContractor(user.toJson());
   }
 
   @override
   Future<bool> registerServiceProvider(User user) async {
-    return await _database.registerServiceProvider(user);
+    return await _database.registerServiceProvider(user.toJson());
   }
 }
