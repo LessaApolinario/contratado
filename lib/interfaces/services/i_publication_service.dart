@@ -1,6 +1,6 @@
 import 'package:contratado/models/publication.dart';
 
-abstract class IPublicationRepository {
+abstract class IPublicationService {
   Future<void> createContractorPublication(Publication publication);
 
   Future<void> createServiceProviderPublication(Publication publication);
