@@ -1,5 +1,5 @@
-mixin IRegisterDatabase<Entity> {
-  Future<bool> registerContractor(Entity entity);
+mixin IRegisterDatabase {
+  Future<bool> registerContractor(Map<String, dynamic> entity);
 
-  Future<bool> registerServiceProvider(Entity entity);
+  Future<bool> registerServiceProvider(Map<String, dynamic> entity);
 }

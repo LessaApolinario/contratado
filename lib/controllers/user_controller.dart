@@ -8,7 +8,7 @@ import 'package:contratado/services/user_service.dart';
 
 class UserController {
   Future<bool> login(String email, String password) async {
-    ISQLDatabase<User> database = SQLiteDatabase();
+    ISQLDatabase database = SQLiteDatabase();
     IUserRepository userRepository = UserRepository(database);
     IUserService userService = UserService(userRepository);
 
@@ -18,7 +18,7 @@ class UserController {
   }
 
   Future<bool> registerContractor(User user) async {
-    ISQLDatabase<User> database = SQLiteDatabase();
+    ISQLDatabase database = SQLiteDatabase();
     IUserRepository userRepository = UserRepository(database);
     IUserService userService = UserService(userRepository);
 
@@ -28,7 +28,7 @@ class UserController {
   }
 
   Future<bool> registerServiceProvider(User user) async {
-    ISQLDatabase<User> database = SQLiteDatabase();
+    ISQLDatabase database = SQLiteDatabase();
     IUserRepository userRepository = UserRepository(database);
     IUserService userService = UserService(userRepository);
 

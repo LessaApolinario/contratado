@@ -1,11 +1,10 @@
 import "dart:async";
 
 import 'package:contratado/interfaces/database/i_sql_database.dart';
-import "package:contratado/models/user.dart";
 import 'package:path/path.dart';
 import "package:sqflite/sqflite.dart";
 
-class SQLiteDatabase implements ISQLDatabase<User> {
+class SQLiteDatabase implements ISQLDatabase {
   late Database _db;
 
   @override
@@ -82,16 +81,16 @@ class SQLiteDatabase implements ISQLDatabase<User> {
   }
 
   @override
-  Future<bool> registerContractor(User user) async {
+  Future<bool> registerContractor(Map<String, dynamic> entity) async {
     String sql =
         "INSERT INTO users (type, name, email, cpf, password) VALUES (?, ?, ?, ?, ?);";
     Database database = await connect();
     final result = await database.rawInsert(sql, [
-      user.type,
-      user.name,
-      user.email,
-      user.cpf,
-      user.password,
+      entity["type"],
+      entity["name"],
+      entity["email"],
+      entity["cpf"],
+      entity["password"],
     ]);
 
     if (result > 0) {
@@ -102,18 +101,18 @@ class SQLiteDatabase implements ISQLDatabase<User> {
   }
 
   @override
-  Future<bool> registerServiceProvider(User user) async {
+  Future<bool> registerServiceProvider(Map<String, dynamic> entity) async {
     String sql =
         "INSERT INTO users (type, name, email, cpf, password, phone, specialty) VALUES (? , ?, ?, ?, ?, ?, ?);";
     Database database = await connect();
     final result = await database.rawInsert(sql, [
-      user.type,
-      user.name,
-      user.email,
-      user.cpf,
-      user.password,
-      user.phone,
-      user.specialty,
+      entity["type"],
+      entity["name"],
+      entity["email"],
+      entity["cpf"],
+      entity["password"],
+      entity["phone"],
+      entity["specialty"],
     ]);
 
     if (result > 0) {

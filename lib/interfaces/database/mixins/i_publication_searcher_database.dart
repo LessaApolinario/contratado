@@ -1,5 +1,8 @@
-mixin IPublicationSearcherDatabase {
-  Future<List<Map<String, Object?>>> findContractorsPublications();
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-  Future<List<Map<String, Object?>>> findServiceProvidersPublications();
+mixin IPublicationSearcherDatabase {
+  Future<List<QueryDocumentSnapshot<Object?>>> findContractorsPublications();
+
+  Future<List<QueryDocumentSnapshot<Object?>>>
+      findServiceProvidersPublications();
 }

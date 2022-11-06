@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "59131739904",
+    "project_id": "contratado-1fb65",
+    "storage_bucket": "contratado-1fb65.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:59131739904:android:ce4bc0509b42228cf27de5",
+        "android_client_info": {
+          "package_name": "com.example.contratado"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "59131739904-r75gflff313fkkr7eldrbpeq0n6b2ilr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDauYxgj8xxmyl_ExcWLVD-b5uzk6tMyUM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "59131739904-r75gflff313fkkr7eldrbpeq0n6b2ilr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

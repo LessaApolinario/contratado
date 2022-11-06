@@ -1,5 +1,5 @@
 mixin IPublicationCreatorDatabase {
-  Future<void> createContractorsPublications(Object? data);
+  Future<void> createContractorPublication(Map<String, dynamic> data);
 
-  Future<void> createServiceProvidersPublications(Object? data);
+  Future<void> createServiceProviderPublication(Map<String, dynamic> data);
 }
