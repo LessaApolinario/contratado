@@ -18,7 +18,7 @@ class UserController {
   }
 
   Future<bool> registerContractor(User user) async {
-    ISQLDatabase<User> database = SQLiteDatabase();
+    ISQLDatabase database = SQLiteDatabase();
     IUserRepository userRepository = UserRepository(database);
     IUserService userService = UserService(userRepository);
 
