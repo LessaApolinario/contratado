@@ -1,4 +1,4 @@
-import 'package:contratado/routes/routes.dart';
+import 'package:contratado/src/routes/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
